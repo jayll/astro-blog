@@ -27,35 +27,39 @@ Features:
 - ✅ Super easy to deploy as a static site
 - ✅ Includes some prebuilt components for you to use
 - ✅ Easy to edit by editing the markdown directly
-- ✅ Comments and likes via bluesky
 
 ## tutorials
 
 the demo blog doubles as a tutorial on how to use this template:
 
-- [quick start with github pages](https://flo-bit.dev/blog-template/posts/how-to-use)
+- [quick start with cloudflare workers](https://flo-bit.dev/blog-template/posts/how-to-use)
 
 - [adding content](https://flo-bit.dev/blog-template/posts/adding-content)
 
-- [comments and likes via bluesky](https://flo-bit.dev/blog-template/posts/comments-via-bluesky)
+## quick start with cloudflare workers in 5 minutes
 
-## quick start with github pages in 5 minutes
+This blog is deployed to [cloudflare workers](https://developers.cloudflare.com/workers/static-assets/)
+as a plain static site. `wrangler.jsonc` is committed on purpose: it tells cloudflare the site is an
+assets-only worker, and it stops cloudflare's build system from trying to auto-configure an astro
+adapter that a fully static site does not need.
 
-1. Fork [the repository of this blog](https://github.com/flo-bit/blog-template) 
+1. Fork [the repository of this blog](https://github.com/flo-bit/blog-template)
 
-- Either name your fork `<github-username>.github.io` if you want your blog to live at `<github-username>.github.io` 
+2. In the cloudflare dashboard go to _Workers & Pages_ -> _Create_ -> _Import a repository_ and pick your fork
 
-- Or choose any other repo name and it will live at `<github-username>.github.io/<repo-name>`
+- **build command**: `npm run build`
+- **deploy command**: `npx wrangler deploy`
 
-2. In your repository settings, set up github pages to deploy using github actions (_SETTINGS_ -> _PAGES_ -> _SOURCE_: **Github Actions**)
+Everything else (worker name, assets directory) is read from `wrangler.jsonc`.
 
 3. Set up your blog info in `src/config.ts`, most importantly the `SITE` and `BASE` variables:
 
-- `SITE`: set to `https://<github-username>.github.io`
-- `BASE`: if repo name is `<github-username>.github.io` set to `/`, otherwise set to `/<repo-name>`
+- `SITE`: the url your blog is served from, e.g. `https://astro-blog.<your-subdomain>.workers.dev`
+(cloudflare shows it after the first deploy) or your own domain
+- `BASE`: leave empty when the blog lives at the root of `SITE`, which is the normal case on cloudflare.
+only set it (e.g. `/blog`) if you serve the blog from a subpath
 
-4. Once you push your changes to main your blog should be live in about 1-2 minutes at 
-`<github-username>.github.io` or `<github-username>.github.io/<repo-name>`
+4. Once you push your changes to main your blog should be live in about 1-2 minutes
 
 5. Set up more info in `src/config.ts` (see [all options here](https://flo-bit.dev/blog-template/posts/configuring-the-blog))
 
@@ -63,9 +67,7 @@ the demo blog doubles as a tutorial on how to use this template:
 - `SITE_DESCRIPTION` is the description of your blog, and will be shown e.g. in search results
 - `SITE_FAVICON` is the emoji that will be shown as favicon of your blog (will be shown in the header and as favicon)
 - `NAME` is the name of the author of the blog, will be shown in the footer as `(c) <YEAR> <NAME> - LICENSE`
-- `BLUESKY_IDENTIFIER` is your bluesky handle (without the `@`), this is needed for likes and comments to work 
-(see [comments via bluesky](https://flo-bit.dev/blog-template/posts/comments-via-bluesky))
-- `SOCIAL_LINKS` set your social media links here, e.g. `{ BLUESKY_URL: "https://bsky.app/profile/flo-bit.dev" }` 
+- `SOCIAL_LINKS` set your social media links here, e.g. `{ GITHUB_URL: "https://github.com/<your-username>" }` 
 will be shown in the footer of the blog
 
 6. Edit `about.mdx` in `src/content/info/` to add your own about page.
@@ -73,11 +75,18 @@ will be shown in the footer of the blog
 7. Remove all files from `src/content/blog/` and add your own blog posts there. Time to write your first blog post! 
 (see [adding content](https://flo-bit.dev/blog-template/posts/adding-content) for more info)
 
-8. Anytime you push to the main branch, your blog will automatically be updated (should usually take less than 2 minutes). 
-You can also go to the github actions tab to check the progress/status.
+8. Anytime you push to the main branch, your blog will automatically be rebuilt and deployed. You can watch
+the progress in the cloudflare dashboard under your worker's _Deployments_ tab.
 
-If you run into any issues, feel free to [open an issue](https://github.com/flo-bit/blog-template/issues) or 
-[contact me on bluesky](https://bsky.app/profile/flo-bit.dev)
+You can also deploy straight from your own machine at any time:
+
+```bash
+npx wrangler login
+npm run deploy
+```
+
+If you run into any issues with the template itself, feel free to
+[open an issue](https://github.com/flo-bit/blog-template/issues)
 
 ## Notes
 

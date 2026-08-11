@@ -82,6 +82,6 @@ export default defineConfig({
     prefetchAll: true,
   },
   site: SITE,
-  base: BASE,
+  base: BASE || "/",
   output: "static",
 });

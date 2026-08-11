@@ -2,13 +2,16 @@ import type { AccentColor, BaseColor } from "./colors";
 
 // IMPORTANT SET THOSE TWO VARIABLES:
 // NUMBER ONE:
-// if deployed to github pages, set to https://<your-github-username>.github.io/
-export const SITE = "https://flo-bit.dev";
+// the origin your blog is served from, without a trailing slash.
+// on cloudflare workers this is https://<worker-name>.<your-subdomain>.workers.dev
+// or your own domain once you attach one.
+export const SITE = "https://astro-blog.example.workers.dev";
 
 // NUMBER TWO:
-// if repo name is <your-github-username>.github.io set to '/'
-// otherwise set to '/<your-repo-name>'
-export const BASE = "/blog-template";
+// the path the blog is served under. leave this empty when the blog lives at the
+// root of SITE (the normal case on cloudflare). if you serve it from a subpath,
+// set that path here without a trailing slash, e.g. '/blog'
+export const BASE = "";
 
 // MORE SETTINGS:
 
@@ -27,9 +30,6 @@ export const NAME = "flo-bit";
 // will be used in the footer as the license of the content (e.g. "All right reserved" or "CC-BY-SA 4.0")
 export const LICENSE = "MIT licensed.";
 
-// will be used to identify your bluesky account, so that likes and comments can be shown on your posts
-export const BLUESKY_IDENTIFIER = "flo-bit.dev";
-
 export const SOURCE_LINK = 'https://github.com/flo-bit/blog-template';
 
 // will be used to set the base color of the blog
@@ -39,6 +39,7 @@ export const BASE_COLOR: BaseColor = "neutral";
 export const ACCENT_COLOR: AccentColor = "cyan";
 
 // will show all icons that are not empty in the footer as links
+// e.g. GITHUB_URL: "https://github.com/<your-username>", EMAIL: "you@example.com"
 export const SOCIAL_LINKS: {
   FACEBOOK_URL?: string;
   TWITTER_URL?: string;
@@ -48,13 +49,9 @@ export const SOCIAL_LINKS: {
   YOUTUBE_URL?: string;
   SUBSTACK_URL?: string;
   EMAIL?: string;
-  BLUESKY_URL?: string;
   SHOW_RSS?: boolean;
 } = {
   SHOW_RSS: true,
-  BLUESKY_URL: "https://bsky.app/profile/flo-bit.dev",
-  GITHUB_URL: "https://github.com/flo-bit",
-  EMAIL: "flo.bit.dev@gmail.com",
 };
 
 

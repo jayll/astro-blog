@@ -13,5 +13,5 @@
       "$examples/*": ["src/examples/*"]
     }
   },
-  "exclude": ["public/pagefind", "dist"]
+  "exclude": ["dist"]
 }
